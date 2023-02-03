@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://accounts.google.com/gsi/client" onload="initClient()" async defer></script>
+  </head>
+  <body>
+    <script>
+      var client;
+      function initClient() {
+        client = google.accounts.oauth2.initCodeClient({
+          client_id: '1020532829824-8cir171h9s0426f122etjm7ai2795dsm.apps.googleusercontent.com',
+          scope: 'https://www.googleapis.com/auth/cloud-platform',
+          
+          ux_mode: 'popup',
+          callback: (response) => {
+            var code_receiver_uri = `http://localhost:8000/oauth2callback?code=${response.code}&scope=${response.scope}`;
+            // Send auth code to your backend platform
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', code_receiver_uri, true);
+            xhr.onload = function() {
+              console.log('Signed in as: ' + xhr.responseText);
+            };
+            xhr.send();
+            // After receipt, the code is exchanged for an access token and
+            // refresh token, and the platform then updates this web app
+            // running in user's browser with the requested calendar info.
+          },
+        });
+      }
+      function getAuthCode() {
+        // Request authorization code and obtain user consent
+          client.requestCode();
+      }
+    </script>
+    <button onclick="getAuthCode();">Load Your PDF</button>
+  </body>
+</html>

@@ -1,24 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 
+import GoogleAuth from './components/GoogleSignIn';
+import { gapi } from 'gapi-script';
+import { useEffect } from 'react';
+const CLIENTID = "1020532829824-8cir171h9s0426f122etjm7ai2795dsm.apps.googleusercontent.com"
+
 function App() {
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GoogleAuth />
   );
 }
 
